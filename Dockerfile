@@ -9,7 +9,7 @@ FROM debian:stable-slim as builder
         gawk \
         git \
         libsqlite3-dev \
-        libssl1.1 \
+        libssl-dev \
         libzip-dev \
         make \
         openssl \
