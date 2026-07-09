@@ -2,16 +2,11 @@ name: Docker
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ '**' ]  # 任意分支
     tags: [ 'v*.*.*' ]
   pull_request:
-    branches: [ main, master ]
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Docker image tag'
-        required: false
-        default: 'latest'
+    branches: [ '**' ]
+  workflow_dispatch:  # 手动触发，任意分支
 
 env:
   REGISTRY: ghcr.io
@@ -51,7 +46,6 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest,enable=${{ github.event_name == 'workflow_dispatch' }}
-            type=raw,value=${{ github.event.inputs.tag }},enable=${{ github.event_name == 'workflow_dispatch' }}
             type=ref,event=branch
             type=semver,pattern={{version}}
 
